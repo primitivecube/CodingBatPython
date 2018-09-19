@@ -1,0 +1,32 @@
+# Logic-2 > lone_sum 
+
+# Given 3 int values,
+# a b c, 
+# return their sum. 
+# However, if one of the values is the same as another of the values,
+# it does not count towards the sum.
+
+
+# lone_sum(1, 2, 3) → 6
+# lone_sum(3, 2, 3) → 2
+# lone_sum(3, 3, 3) → 0
+
+## Brett Comment: The simple way to do this would be, for each argument
+## in the function, check that it is not equal to the other arguments. However,
+## that would get tedious if the function accepted unlimited arguments (for example,
+## a list as the argument). So, I've solved it in away that could easily extend to
+## unlimited arguments. 
+
+def lone_sum(a, b, c):
+  sum_list = [a,b,c]
+  sum = 0
+  for i in sum_list:
+    count = 0
+    for j in sum_list:
+      if j == i:
+        count += 1
+    if count == 1:
+      sum += i
+  return sum
+      
+  
