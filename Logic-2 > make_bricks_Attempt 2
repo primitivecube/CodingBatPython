@@ -1,0 +1,33 @@
+# Logic-2 > make_bricks 
+
+# We want to make a row of bricks that is goal inches long. We have a number of small bricks (1 inch each) and big bricks (5 inches each). Return True if it is possible to make the goal by choosing from the given bricks. This is a little harder than it looks and can be done without any loops. See also: Introduction to MakeBricks
+
+
+# make_bricks(3, 1, 8) → True
+# make_bricks(3, 1, 9) → False
+# make_bricks(3, 2, 10) → True
+
+## Brett Comment: This is my new version after reading the 'introduction to MakeBricks',
+## to see if I could achieve the simplicity that I knew I was missing from my earlier version. 
+
+## Technically, it could be as simple as follows:
+
+def make_bricks(small, big, goal):
+  return small >= goal % 5 and (big * 5 >= goal or (big*5 + small) >= goal)
+  
+## But the logic there isn't very clear, nor extendable for different brick lengths.
+## So here is the start of a version that is meant to be extendable. I suspect it
+## isn't accurate yet, but it's a start. 
+
+# def make_bricks(small, big, goal):
+#   s_brick = 1 # This is to extend the code for different brick lengths
+#   b_brick = 5 # This is to extend the code for different brick lengths
+#   # Check if the goal is divisible by a combination of lengths, or by either length:
+#   if (goal % b_brick) % s_brick == 0 or goal % s_brick == 0 or goal % b_brick == 0:
+#     # Check if the total brick length can reach the goal:
+#     if ((big*b_brick >= goal) or big*b_brick + small*s_brick >= goal):
+#       # Check if the the small bricks can make up the remaining length from the big bricks:
+#       if small*s_brick >= goal % b_brick:
+#         return True
+#   return False
+  
