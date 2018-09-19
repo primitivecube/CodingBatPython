@@ -1,0 +1,90 @@
+# Logic-2 > make_bricks 
+
+# We want to make a row of bricks that is goal inches long. 
+# We have a number of small bricks (1 inch each) and big bricks (5 inches each). 
+# Return True if it is possible to make the goal by choosing from the given bricks.
+# This is a little harder than it looks and can be done without any loops. 
+# See also: Introduction to MakeBricks
+
+# make_bricks(3, 1, 8) → True
+# make_bricks(3, 1, 9) → False
+# make_bricks(3, 2, 10) → True
+
+## Brett Comment: This is my first solution, with loops. Loops are problematic for long
+## iterations, so it isn't suitable for large numbers, and will time out for this
+## problem. 
+
+# def make_bricks(small, big, goal):
+#   bricks = []
+#   for i in range(1,small+1):
+#     bricks.append(1)
+#   for i in range(1,big+1):
+#     bricks.append(5)
+#   while bricks:
+#     if goal >= 5:
+#       goal -= bricks.pop()
+#     else:
+#       goal -= bricks.pop(0)
+#     if goal == 0:
+#       return True
+#   return False
+
+## Brett Comment: Here is my solution, after much trial and error:
+
+# def make_bricks(small, big, goal):
+#   s_brick = 1
+#   b_brick = 5
+#   # check if there are enough small bricks alone to reach the goal:
+#   if goal % s_brick == 0 and small * s_brick >= goal:
+#     return True
+#   # check if there are enough big bricks alone to reach the goal:
+#   if goal % b_brick == 0 and big * b_brick >= goal:
+#     return True
+#   # check if we need all of the big bricks and some of the small bricks:
+#   if big * b_brick < goal:
+#     if big * b_brick + small * s_brick >= goal:
+#       return True
+#   # check if we need some of the big bricks and some of the small bricks:
+#   if big * b_brick > goal:
+#     if goal % b_brick <= small * s_brick:
+#       return True
+#   return False
+  
+## Brett Comment: Well that was tricky. I found that my mind would intuitively
+## solve the problem, but it was difficult to turn that intuition into computation.
+## I finally solved it by testing my intuition against various test cases and 
+## expressing each intuitive step computationally. This required slowing down my 
+## thinking and analysing how I mentally solved the problem after having solved it
+## unconsciously just by glancing at the problem. After going through this process
+## for a few test cases, I found that there were only four scenarios that my mind
+## ever applied to the problem, which now make up the code seen above. Another
+## fascinating thing about the intuition is that it instinctively new which process
+## of the four to apply to any given problem; except on the rare occassion where
+## I had to think through two methods, or saw very large numbers and had to think
+## more carefully about it. Here is my attempt at re-ordering the algorithm according 
+## to how I'd mentally solve the problem:
+
+def make_bricks(small, big, goal):
+  s_brick = 1
+  b_brick = 5
+  # check if the goal is a multiple of big bricks:
+  if goal % b_brick == 0:
+    # check if there are enough big bricks alone to reach the goal:
+    if goal % b_brick == 0 and big * b_brick >= goal:
+      return True
+  # if the goal is not a multiple of big bricks, 
+  # and there are not enough big bricks alone,
+  # see if there there is enough of both:
+  if big * b_brick < goal:
+    if big * b_brick + small * s_brick >= goal:
+      return True
+  # if there are more than enough big bricks,
+  # then see if there are enough small bricks to add the to the big bricks
+  # to reach the goal:
+  if big * b_brick > goal:
+    if goal % b_brick <= small * s_brick:
+      return True
+  # check if there are enough small bricks alone to reach the goal:
+  if goal % s_brick == 0 and small * s_brick >= goal:
+    return True
+  return False
