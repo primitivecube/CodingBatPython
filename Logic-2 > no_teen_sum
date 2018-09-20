@@ -18,12 +18,7 @@
 # no_teen_sum(2, 1, 14) → 3
 
 def no_teen_sum(a, b, c):
-  sum = 0
-  list = [a,b,c]
-  for i in list:
-    if i not in [13,14,17,18,19]:
-      sum += i
-  return sum
+  return fix_teen(a) + fix_teen(b) + fix_teen(c)
   
 def fix_teen(n):
   if n in [13,14,17,18,19]:
