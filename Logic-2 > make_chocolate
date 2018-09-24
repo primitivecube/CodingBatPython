@@ -1,0 +1,40 @@
+# Logic-2 > make_chocolate 
+
+# We want make a package of goal kilos of chocolate. 
+# We have small bars (1 kilo each) and big bars (5 kilos each). 
+# Return the number of small bars to use, 
+# assuming we always use big bars before small bars. 
+# Return -1 if it can't be done.
+
+
+# make_chocolate(4, 1, 9) → 4
+# make_chocolate(4, 1, 10) → -1
+# make_chocolate(4, 1, 7) → 2
+
+def make_chocolate(small, big, goal):
+  # check if it is possible to reach the goal:
+  if big*5 + small >= goal:
+    # check if there are not enough bigs alone to reach the goal:
+    if big*5 < goal:
+      # if so, the amount of smalls needed is equal to the goal - bigs
+      return goal - big*5
+    # but if there are enough bigs...
+    else:
+      # and the goal is wholly divisible by bigs...
+      if goal % 5 == 0:
+        # then return 0, because we are only counting the smalls needed
+        return 0
+      # and if the goal is not wholly divisible by bigs...
+      else:
+        # and there are not enough smalls to reach the remainder of division by bigs...
+        if small < goal % 5:
+          # then the goal cannot be reached
+          return -1
+        # but if there are enough smalls to reach the remainder of division by bigs...
+        else:
+          # thenr return the remainder of the goal divided by bigs
+          return goal % 5
+  # if it isn't possible to reach the goal...
+  else:
+    # then return the fail code (-1)
+    return -1
