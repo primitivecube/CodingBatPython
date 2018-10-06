@@ -1,0 +1,19 @@
+# String-2 > xyz_there 
+
+# Return True if the given string contains an appearance of "xyz" where the xyz is not directly preceeded by a period (.). So "xxyz" counts but "x.xyz" does not.
+
+
+# xyz_there('abcxyz') → True
+# xyz_there('abc.xyz') → False
+# xyz_there('xyz.abc') → True
+
+def xyz_there(str):
+  count = 0
+  while count < len(str):
+    if str[count] == ".":
+      count += 2
+      continue
+    elif str[count:count+3] == "xyz":
+      return True
+    count += 1
+  return False
